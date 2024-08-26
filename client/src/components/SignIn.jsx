@@ -5,19 +5,39 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
+import Toast from "react-bootstrap/Toast";
+import { useAuth } from "../context/AuthContext";
 
 const SignIn = () => {
+  const URL = "http://localhost:2100/auth";
   const [showPassword, setShowPassword] = useState(false);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleSignIn(e) {
+  const navigate = useNavigate();
+  const {login} = useAuth();
+
+  async function handleSignIn(e) {
     e.preventDefault();
 
-    console.log(`${username} ${password}`);
+    if(username && username){
 
-    e.target.reset();
+      try {
+        const response = await axios.post(URL, {
+          username: username,
+          password: password,
+        });
+  
+        console.log(response.data);
+        login(username);
+        navigate('/');
+        e.target.reset();
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
   }
 
   return (

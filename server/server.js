@@ -18,7 +18,7 @@ app.get("/user", async (req, res) => {
   } catch(err) {
     res.status(500).json({message: err.message})
   }
-})
+})  
 
 app.post("/user", async (req, res) => {
   try {
@@ -28,6 +28,19 @@ app.post("/user", async (req, res) => {
     res.status(500).json({message: err.message});
   }
 })
+
+app.post('/auth', async (req, res) => {
+  const { username, password } = req.body;
+
+  const user = await User.findOne({username});
+
+  if (user && user.password === password) {
+    const { password, ...userWithoutPassword } = user.toObject();
+    return res.status(200).json(userWithoutPassword);
+  } else {
+    return res.status(401).json({ message: 'Invalid username or password' });
+  }
+});
 
 mongoose.connect(process.env.DATABASE_URL)
 .then(() => {

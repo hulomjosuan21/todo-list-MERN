@@ -1,19 +1,33 @@
+/* eslint-disable no-unused-vars */
 import { NavLink } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
+import axios from 'axios';
 
 const SignUp = () => {
+  const URL = 'http://localhost:2100/user'
   const [showPassword, setShowPassword] = useState(false);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [re_password, setRe_Password] = useState("");
 
-  function handleSignUp(e) {
+  async function handleSignUp(e) {
     e.preventDefault();
 
-    console.log(`${username} ${password} ${re_password}`);
+    if(username && password) {
+      try {
+        const response = await axios.post(URL, {
+          username: username,
+          password: password
+        })
+
+        console.log(response.data)
+      } catch(error) {
+        console.log(error.message)
+      }
+    }
 
     e.target.reset();
   }
