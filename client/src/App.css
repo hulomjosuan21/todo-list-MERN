@@ -1,0 +1,22 @@
+.sign_container {
+  display: grid;
+  height: 100svh;
+  place-items: center;
+}
+
+.nav_text {
+  font-size: small;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.sign_label {
+  text-align: center;
+  font-weight: 700;
+}
+
+.sign_form {
+  border: 1px solid black;
+  padding: 2rem;
+  border-radius: 12px;
+}

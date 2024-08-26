@@ -1,0 +1,76 @@
+import { NavLink } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { useState } from "react";
+
+const SignUp = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [re_password, setRe_Password] = useState("");
+
+  function handleSignUp(e) {
+    e.preventDefault();
+
+    console.log(`${username} ${password} ${re_password}`);
+
+    e.target.reset();
+  }
+
+  return (
+    <div className="sign_container">
+      <Form onSubmit={handleSignUp} className="sign_form">
+        <Form.Group>
+          <h3 className="sign_label">Sign Up</h3>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type={showPassword ? "text" : "password"}
+            placeholder="Enter Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Re-enter Password</Form.Label>
+          <Form.Control
+            type={showPassword ? "text" : "password"}
+            placeholder="Re-enter Password"
+            onChange={(e) => setRe_Password(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Check
+            type="checkbox"
+            label="Show password"
+            onChange={() => setShowPassword(!showPassword)}
+          />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Sign Up
+        </Button>
+
+        <Form.Group>
+          <NavLink to="/signin" className="nav_text">
+            Already have an account?
+          </NavLink>
+        </Form.Group>
+      </Form>
+    </div>
+  );
+};
+
+export default SignUp;
