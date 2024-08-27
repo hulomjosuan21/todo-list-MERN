@@ -34,8 +34,9 @@ const SignIn = () => {
         login(username);
         navigate('/');
         e.target.reset();
-      } catch (error) {
+      } catch ({...error}) {
         console.log(error.message);
+        window.alert(error.message);
       }
     }
   }
