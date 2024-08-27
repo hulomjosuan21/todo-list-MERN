@@ -1,24 +1,29 @@
-const express = require('express')
-const app = express()
-const cors = require('cors');
-const mongoose = require('mongoose')
-require('dotenv').config()
-const UserRoute = require('./routes/user.route.js')
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const mongoose = require("mongoose");
+require("dotenv").config();
+const UserRoute = require("./routes/user.route.js");
 
-app.use(cors())
-app.use(express.json())
+const PORT = Number(process.env.PORT);
+const DATABASE_URL = process.env.DATABASE_URL;
 
-const PORT = Number(process.env.PORT)
+// middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-app.use("/user", UserRoute)
+// routes
+app.use("/user", UserRoute);
 
-mongoose.connect(process.env.DATABASE_URL)
-.then(() => {
-  console.log('Connected to database! ')
-  app.listen(PORT, () => {
-    console.log(`Server is listening to port ${PORT}`)
+mongoose
+  .connect(DATABASE_URL)
+  .then(() => {
+    console.log("Connected to database! ");
+    app.listen(PORT, () => {
+      console.log(`Server is listening to port ${PORT}`);
+    });
   })
-})
-.catch(() => {
-  console.error(`Can't connect to database!`)
-})
+  .catch(() => {
+    console.error(`Can't connect to database!`);
+  });
