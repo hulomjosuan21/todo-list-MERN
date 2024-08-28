@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const UserRoute = require("./routes/user.route.js");
+const TodoListRoute = require("./routes/todolist.route.js");
 
 const PORT = Number(process.env.PORT);
 const DATABASE_URL = process.env.DATABASE_URL;
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // routes
 app.use("/user", UserRoute);
+app.use("/todo", TodoListRoute);
 
 mongoose
   .connect(DATABASE_URL)

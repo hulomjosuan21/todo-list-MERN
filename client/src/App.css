@@ -26,3 +26,119 @@
   top: 10px;
   right: 10px;
 }
+
+.btn-header {
+  all: unset;
+  font-size: clamp(1rem, 2vw, 2rem);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  transition: all 0.4s ease;
+}
+
+.btn-header:hover {
+  background-color: rgb(206, 206, 206);
+  opacity: 0.8;
+}
+
+.btn-header:active {
+  transform: scale(0.6);
+}
+
+.logo_text {
+  font-weight: 700;
+  font-size: clamp(1rem, 2vw, 2rem);
+}
+
+.add_btn {
+  display: block;
+  position: absolute;
+  bottom: 10px;
+  width: 4rem;
+  height: 4rem;
+  right: 10px;
+  font-size: clamp(1rem, 2vw, 2rem);
+  padding: 0.4rem 0.8rem;
+  border-radius: 50%;
+  transition: all 0.4s ease;
+  background-color: rgb(37, 20, 152);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.add_btn:hover {
+  background-color: rgba(105, 90, 205, 0.735);
+  opacity: 0.8;
+}
+
+.add_btn:active {
+  transform: scale(0.6);
+}
+
+.todos_label {
+  text-align: center;
+}
+
+header {
+  display: flex;
+  padding: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo_wrapper {
+  display: flex;
+  margin: 2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.todo_controller {
+  max-width: 600px;
+  min-width: 344px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: slateblue;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.todo_controller div {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.todo_controller button {
+  all: unset;
+  font-size: small;
+  border-radius: 2px;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  transition: all 0.4s ease;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.todo_controller button:hover {
+  opacity: 0.8;
+}
+
+.todo_controller button:active {
+  transform: scale(0.8);
+}
+
+.todo_controller span:nth-of-type(1) {
+  color: white;
+  font-weight: 600;
+}
+
+.todo_controller span:nth-of-type(2) {
+  color: white;
+}

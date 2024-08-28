@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import axios from 'axios';
+import { useDispatch } from "react-redux";
+import { loginUser } from "../context/AuthActions";
 
 const SignUp = () => {
   const URL = 'http://localhost:2100/user'
@@ -12,6 +14,10 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [re_password, setRe_Password] = useState("");
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   async function handleSignUp(e) {
     e.preventDefault();
@@ -23,7 +29,10 @@ const SignUp = () => {
           password: password
         })
 
-        console.log(response.data)
+        console.log(response.data);
+        dispatch(loginUser(response.data));
+        navigate('/');
+        e.target.reset();
       } catch(error) {
         console.log(error.message)
       }
@@ -47,7 +56,7 @@ const SignUp = () => {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicPassword1">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type={showPassword ? "text" : "password"}
@@ -56,7 +65,7 @@ const SignUp = () => {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicPassword2">
           <Form.Label>Re-enter Password</Form.Label>
           <Form.Control
             type={showPassword ? "text" : "password"}

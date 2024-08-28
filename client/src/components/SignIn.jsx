@@ -1,23 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
-/* eslint-disable no-unused-vars */
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-import Toast from "react-bootstrap/Toast";
-import { useAuth } from "../context/AuthContext";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../context/AuthActions";
 
 const SignIn = () => {
-  const URL = "http://localhost:2100/auth";
+  const URL = "http://localhost:2100/user/auth";
   const [showPassword, setShowPassword] = useState(false);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
-  const {login} = useAuth();
 
   async function handleSignIn(e) {
     e.preventDefault();
@@ -30,8 +30,7 @@ const SignIn = () => {
           password: password,
         });
   
-        console.log(response.data);
-        login(username);
+        dispatch(loginUser(response.data));
         navigate('/');
         e.target.reset();
       } catch ({...error}) {
