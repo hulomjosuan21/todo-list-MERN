@@ -8,6 +8,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
 const Home = () => {
+  const URL = import.meta.env.REACT_APP_API_URL;
   const user = useSelector((state) => state.current_user);
   const dispatch = useDispatch();
 
@@ -26,7 +27,7 @@ const Home = () => {
 
     try {
       await axios
-        .post("http://localhost:2100/todo", { ...newTodo, userid: user._id })
+        .post(`${URL}/todo`, { ...newTodo, userid: user._id })
         .catch(() => {
           window.alert("Something went wrong");
         });
@@ -41,7 +42,7 @@ const Home = () => {
   async function handleStatus(id, stat) {
     try {
       await axios
-        .put(`http://localhost:2100/todo/${id}`, { status: !stat })
+        .put(`${URL}/todo/${id}`, { status: !stat })
         .catch(() => {
           window.alert("Something went wrong");
         });
@@ -52,7 +53,7 @@ const Home = () => {
 
   async function handleDelete(id) {
     try {
-      await axios.delete(`http://localhost:2100/todo/${id}`).catch(() => {
+      await axios.delete(`${URL}/todo/${id}`).catch(() => {
         window.alert("Something went wrong");
       });
     } catch {
@@ -63,7 +64,7 @@ const Home = () => {
   async function getAllTodos() {
     try {
       await axios
-        .get(`http://localhost:2100/todo/${user._id}`)
+        .get(`${URL}/todo/${user._id}`)
         .then((response) => {
           setTodos(response.data);
         });

@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../context/AuthActions";
 
 const SignUp = () => {
-  const URL = 'http://localhost:2100/user'
+  const URL = import.meta.env.REACT_APP_API_URL;
   const [showPassword, setShowPassword] = useState(false);
 
   const [username, setUsername] = useState("");
@@ -24,7 +24,7 @@ const SignUp = () => {
 
     if(username && password) {
       try {
-        const response = await axios.post(URL, {
+        const response = await axios.post(`${URL}/user`, {
           username: username,
           password: password
         })
