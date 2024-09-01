@@ -7,6 +7,8 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../context/AuthActions";
+import { signInWithPopup } from "firebase/auth";
+import { googleProvider, auth } from "../firebase/firebaseConfig";
 
 const SignIn = () => {
   const URL = import.meta.env.REACT_APP_API_URL;
@@ -19,21 +21,45 @@ const SignIn = () => {
 
   const navigate = useNavigate();
 
+  async function handleGoogleSignIn() {
+    signInWithPopup(auth, googleProvider)
+      .then(async (result) => {
+        const user = result.user;
+
+        const email = user.email;
+        const uid = user.uid;
+
+        try {
+          const response = await axios.post(`${URL}/user/auth`, {
+            username: email,
+            password: `G-${uid}`,
+          });
+
+          dispatch(loginUser(response.data));
+          navigate("/");
+        } catch ({ ...error }) {
+          window.alert(error.message);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   async function handleSignIn(e) {
     e.preventDefault();
 
-    if(username && username){
-
+    if (username && password) {
       try {
         const response = await axios.post(`${URL}/user/auth`, {
           username: username,
           password: password,
         });
-  
+
         dispatch(loginUser(response.data));
-        navigate('/');
+        navigate("/");
         e.target.reset();
-      } catch ({...error}) {
+      } catch ({ ...error }) {
         console.log(error.message);
         window.alert(error.message);
       }
@@ -75,6 +101,12 @@ const SignIn = () => {
         <Button variant="primary" type="submit">
           Sign In
         </Button>
+
+        <div className="d-grid my-2">
+          <Button variant="primary" size="md" onClick={handleGoogleSignIn}>
+            Or continue with <i className="fa-brands fa-google"></i>
+          </Button>
+        </div>
 
         <Form.Group>
           <NavLink NavLink to="/signup" className="nav_text">

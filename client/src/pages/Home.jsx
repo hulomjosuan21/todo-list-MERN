@@ -23,8 +23,6 @@ const Home = () => {
       return;
     }
 
-    console.log({ ...newTodo, userid: user._id });
-
     try {
       await axios
         .post(`${URL}/todo`, { ...newTodo, userid: user._id })
@@ -41,11 +39,9 @@ const Home = () => {
 
   async function handleStatus(id, stat) {
     try {
-      await axios
-        .put(`${URL}/todo/${id}`, { status: !stat })
-        .catch(() => {
-          window.alert("Something went wrong");
-        });
+      await axios.put(`${URL}/todo/${id}`, { status: !stat }).catch(() => {
+        window.alert("Something went wrong");
+      });
     } catch {
       window.alert("Something went wrong");
     }
@@ -63,18 +59,15 @@ const Home = () => {
 
   async function getAllTodos() {
     try {
-      await axios
-        .get(`${URL}/todo/${user._id}`)
-        .then((response) => {
-          setTodos(response.data);
-        });
+      const response = await axios.get(`${URL}/todo/${user._id}`);
+      setTodos(response.data);
     } catch (error) {
       console.log(error.message);
     }
   }
 
   useEffect(() => {
-    return () => getAllTodos();
+    getAllTodos();
   });
 
   return (
@@ -120,7 +113,6 @@ const Home = () => {
 
 const TodoController = ({ todo, handleDelete, handleStatus }) => {
   return (
-    
     <div className="todo_controller">
       <button
         onClick={() => handleStatus(todo._id, todo.status)}
